@@ -43,7 +43,7 @@ a:hover {
     background-color: #f5f5f5;
 }
 
-.main h3,h5 {
+.main h3, h5 {
     padding: 10px;
 }
 
@@ -117,13 +117,35 @@ select {
     display: none;
 }
 
-.search input{
+.search input {
     margin-top: 20px;
 }
-.search input[type="text"]{
+
+.search input[type="text"] {
     width: 70%;
     float: left;
     margin-right: 10px;
+}
+
+.section_paginator {
+    padding-top: 10px;
+}
+
+.section_paginator a {
+    color: #7c7a73;
+}
+
+.section_paginator li {
+    margin-right: 10px;
+}
+
+.section_paginator li.active a {
+    color: #0e087c;
+    font-weight: 600;
+}
+
+.exist_error {
+    color: red;
 }
 
 footer {

@@ -23,6 +23,12 @@
         <span><?= $item["release_date"] ?></span>
     </section>
 <?php endforeach; ?>
+<?if($total > Film::POST_ON_PAGE):?>
+    <section class="section_paginator">
+        <?php echo $paginator->get();?>
+    </section>
+<?endif?>
+
 
 <?php include ROOT . '/views/layouts/footer.php'; ?>
 

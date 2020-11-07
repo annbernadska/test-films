@@ -34,6 +34,6 @@
             </tr>
         </table>
         <a href="/edit/<?= $film["id"]?>">  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> редактировать</a>
-        <a href="/delete/<?= $film["id"]?>"> <i class="fa fa-trash" aria-hidden="true"></i> удалить</a>
+        <a href="/delete/<?= $film["id"]?>" onclick="return confirm('Вы уверены что хотите удалить этот фильм?')"> <i class="fa fa-trash" aria-hidden="true"></i> удалить</a>
     </div>
 <?php include ROOT . '/views/layouts/footer.php'; ?>

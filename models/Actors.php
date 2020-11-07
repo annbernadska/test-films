@@ -27,6 +27,11 @@ class Actors
     public static function addActorsToFilm($filmId, $actorsIds)
     {
         $value = "";
+
+        $actorsIds = array_map(function($value) {
+            return strip_tags($value);
+        }, $actorsIds);
+
         $actorsIds = self::syncActors($actorsIds);
 
         foreach ($actorsIds as $id) {

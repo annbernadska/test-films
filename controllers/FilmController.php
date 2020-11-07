@@ -4,9 +4,11 @@
 class FilmController
 {
 
-    public function actionIndex()
+    public function actionIndex($page = 1)
     {
-        $films = Film::getNewsList();
+        $films = Film::getNewsList($page);
+        $total = Film::getTotalFilms();
+        $paginator = new Pagination($total, $page, Film::POST_ON_PAGE, 'page-');
 
         require_once(ROOT . '/views/site/index.php');
         return true;
@@ -31,11 +33,20 @@ class FilmController
 
     public function actionStore()
     {
-        $filmId = Film::store($_POST);
-        if (!empty($_POST['actors'])) {
-            Actors::addActorsToFilm($filmId, $_POST['actors']);
+        if (!Film::exist($_POST)) {
+            $filmId = Film::store($_POST);
+            if (!empty($_POST['actors'])) {
+                Actors::addActorsToFilm($filmId, $_POST['actors']);
+            }
+            header("Location: /");
+        } else {
+            $exist = true;
+            $actors = Actors::getAllActors();
+
+            require_once(ROOT . '/views/site/create.php');
+            return true;
         }
-        header("Location: /");
+
     }
 
     public function actionEdit(int $id)

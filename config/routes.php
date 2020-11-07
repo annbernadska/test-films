@@ -10,6 +10,7 @@ return [
     'update/([0-9]+)' => '/film/update/$1',
     'delete/([0-9]+)' => '/film/delete/$1',
 
+    'page-([0-9]+)' => '/film/index/$1',
     'index.php' => '/film/index',
     '/' => '/film/index',
     '' => '/film/index',
