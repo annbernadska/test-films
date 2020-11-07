@@ -5,6 +5,7 @@ function __autoload($class_name)
     $array_paths = [
         '/models/',
         '/components/',
+        '/components/parsers/',
         '/controllers/',
     ];
 

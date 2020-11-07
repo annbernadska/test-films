@@ -76,10 +76,14 @@ class FilmController
 
     public function actionImport()
     {
-        $docObj = new DocParser($_FILES['filename']['tmp_name']);
-        $filmsArray = $docObj->getFilms();
+        $file = $_FILES['filename'];
 
-        Film::importFilms($filmsArray);
+        if ($file['size'] != 0) {
+            $parserObj = ParserFactory::getParserObj($file);
+            $content = $parserObj->getContent();
+
+            Film::importFilms($content);
+        }
         header("Location: /");
     }
 

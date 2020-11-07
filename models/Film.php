@@ -64,8 +64,10 @@ class Film
         return $result->execute();
     }
 
-    public static function importFilms($filmsArray)
+    public static function importFilms($content)
     {
+        $filmsArray = self::getFilmsArray($content);
+
         foreach ($filmsArray as &$film) {
             foreach ($film['stars'] as $actor) {
                 $film['actors'][] = Actors::getImportId($actor);
@@ -78,6 +80,25 @@ class Film
                 Actors::addActorsToFilm($filmId, $film['actors']);
             }
         }
+    }
+
+    private static function getFilmsArray($content){
+        $result = [];
+        $fileContent = trim($content);
+
+        preg_match_all("/Title:([^&]*?)Release Year:/", $fileContent, $titles);
+        preg_match_all("/Release Year:([^&]*?)Format:/", $fileContent, $years);
+        preg_match_all("/Format:([^&]*?)Stars:/", $fileContent, $format);
+        preg_match_all("/Stars:([^&]*?)(Title:|$)/", $fileContent, $stars);
+
+        foreach ($titles[1] as $key => $value) {
+            $result[$key]['title'] = trim($value);
+            $result[$key]['release_date'] = trim($years[1][$key]);
+            $result[$key]['format'] = trim($format[1][$key]);
+            $result[$key]['stars'] = explode(',', $stars[1][$key]);
+        }
+
+        return $result;
     }
 
     public static function search($title)
